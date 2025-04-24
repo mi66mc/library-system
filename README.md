@@ -10,8 +10,7 @@ This project is a simple Express-based API that allows users to interact with a 
 1. [Technologies Used](#technologies-used)
 2. [Project Setup](#project-setup)
 3. [API Endpoints](#api-endpoints)
-4. [Running the Application](#running-the-application)
-5. [Contributing](#contributing)
+4. [Running the Application](#running-the-project)
 6. [License](#license)
 
 ---
