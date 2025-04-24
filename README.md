@@ -5,6 +5,7 @@ This project is a simple Express-based API that allows users to interact with a 
 ### Features:
 - **GET `/api/books`** - Retrieve all books from the library.
 - **POST `/api/books`** - Add a new book to the library.
+- **DELETE `/api/books/:id`** - Deletes a book from the library.
 
 ## Table of Contents
 1. [Technologies Used](#technologies-used)
