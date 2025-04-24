@@ -14,9 +14,8 @@ router.get("/", async (_, res) => {
 });
 
 router.post("/", async (req, res) => {
-    const { title, author, year } = req.body;
-    
     try {
+        const { title, author, year } = req.body;
         const query = "INSERT INTO books (title, author, year) VALUES ($1, $2, $3) RETURNING *";
         const { rows: newBook } = await pool.query(query, [title, author, year]);
         res.status(201).json(newBook[0]);
@@ -27,9 +26,8 @@ router.post("/", async (req, res) => {
 });
 
 router.delete("/:id", async (req, res) => {
-    const { id } = req.params;
-
     try {
+        const { id } = req.params;
         const query = "DELETE FROM books WHERE id = $1 RETURNING *";
         const { rows: deletedBook } = await pool.query(query, [id]);
         
