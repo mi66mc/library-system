@@ -36,7 +36,7 @@ router.delete("/:id", async (req, res) => {
         if (deletedBook.length === 0) {
             res.status(404).json({ error: "Book not found." });
         } else {
-            res.json("Book deleted successfully.");
+            res.json({"message": "Book deleted successfully."});
         }
         
     } catch (error) {

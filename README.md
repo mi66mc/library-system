@@ -126,6 +126,18 @@ npm run seed
 }
 ```
 
+### `DELETE api/books/:id`
+
+> **Description:** deletes a book from the database.
+
+> **Response:**
+
+```json
+{
+    "message": "Book deleted successfully."
+}
+```
+
 ## Running the project
 
 ### 1. Start the server
