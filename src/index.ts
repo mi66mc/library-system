@@ -1,7 +1,14 @@
-const world = 'world';
+import express from "express";
+import booksRouter from "./routes/books";
 
-export function hello(who: string = world): string {
-  return `Hello ${who}! `;
-}
+const app = express();
 
-console.log(hello(world))
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+app.use("api/books", booksRouter);
+
+const PORT = 8080;
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
