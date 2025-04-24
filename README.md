@@ -83,6 +83,8 @@ Or you can use to seed 3 books in the database and create the table:
 npm run seed
 ```
 
+---
+
 ## API Endpoints
 
 ### `GET api/books`
@@ -139,6 +141,8 @@ npm run seed
 }
 ```
 
+---
+
 ## Running the project
 
 ### 1. Start the server
@@ -157,6 +161,8 @@ You can run in development mode with nodemon with the command:
 ```bash
 npm run dev
 ```
+
+---
 
 ## License
 
