@@ -6,7 +6,7 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.use("api/books", booksRouter);
+app.use("/api/books", booksRouter);
 
 app.get("/", (req, res) => {
   res.send("Welcome to the Books API!");
