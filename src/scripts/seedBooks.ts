@@ -11,6 +11,12 @@ async function seedBooks() {
     { name: "Bob", email: "bob@example.com" },
     { name: "Charlie", email: "charlie@example.com" },
     ];
+    // rents, with timestamp
+    const rents = [
+      { user_id: 1, book_id: 1, start_date: new Date(), end_date: new Date(new Date().setDate(new Date().getDate() + 7)) },
+      { user_id: 2, book_id: 2, start_date: new Date(), end_date: new Date(new Date().setDate(new Date().getDate() + 14)) },
+      { user_id: 3, book_id: 3, start_date: new Date(), end_date: new Date(new Date().setDate(new Date().getDate() + 21)) },
+    ];
 
   try {
     // Check if table exists, if not, create it
@@ -58,6 +64,30 @@ async function seedBooks() {
       console.log("Tabela 'users' já existe.");
     }
 
+    // Check if table exists, if not, create it
+    const queryCheckTableRents = "SELECT to_regclass(\'public.rent\')";
+    const { rows: checkResultRents } = await pool.query(queryCheckTableRents);
+    
+    if (checkResultRents[0].to_regclass === null) {
+      console.log("Table 'rent' does not exist, creating it...");
+
+      // Table creation query
+      const createTableQueryRents = `
+        CREATE TABLE rent (
+          id SERIAL PRIMARY KEY,
+          user_id INTEGER REFERENCES users(id),
+          book_id INTEGER REFERENCES books(id),
+          start_date TIMESTAMP NOT NULL,
+          end_date TIMESTAMP NOT NULL
+        );
+      `;
+
+      await pool.query(createTableQueryRents);
+      console.log("Table 'rent' created with success!");
+    } else {
+      console.log("Tabela 'rent' já existe.");
+    }
+
     // Insertion of books
     for (const book of books) {
       const query = "INSERT INTO books (title, author, year) VALUES ($1, $2, $3)";
@@ -70,6 +100,12 @@ async function seedBooks() {
       await pool.query(query, [user.name, user.email]);
     }
     console.log("Users inserted successfully!");
+    // insertion of rents
+    for (const rent of rents) {
+      const query = "INSERT INTO rent (user_id, book_id, start_date, end_date) VALUES ($1, $2, $3, $4)";
+      await pool.query(query, [rent.user_id, rent.book_id, rent.start_date, rent.end_date]);
+    }
+    console.log("Rents inserted successfully!");
   } catch (error) {
     console.error("Error: ", error);
   }
