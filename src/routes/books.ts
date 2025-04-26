@@ -17,6 +17,12 @@ router.get("/", async (_, res) => {
 router.post("/", async (req, res) => {
     try {
         const { title, author, year } = req.body;
+
+        if (!title || !author || !year) {
+            res.status(400).json({ error: "Title, author, and year are required." });
+            return; 
+        }
+
         const query = "INSERT INTO books (title, author, year) VALUES ($1, $2, $3) RETURNING *";
         const { rows: newBook } = await pool.query(query, [title, author, year]);
         res.status(201).json(newBook[0]);
