@@ -6,6 +6,9 @@ This project is a simple Express-based API that allows users to interact with a 
 - **GET `/api/books`** - Retrieve all books from the library.
 - **POST `/api/books`** - Add a new book to the library.
 - **DELETE `/api/books/:id`** - Deletes a book from the library.
+- **POST `/api/users`** - Add a new user to the library.
+- **GET `/api/rent`** - Show all rents made by users.
+- **POST `/api/rent`** - Rent a book to a user.
 
 ## Table of Contents
 1. [Technologies Used](#technologies-used)
@@ -138,6 +141,80 @@ npm run seed
 ```json
 {
     "message": "Book deleted successfully."
+}
+```
+
+### `POST api/users`
+> **Description:** adds a new user to the database.
+
+> **Request body:** 
+
+```json
+{
+    "name": "John Doe",
+    "email": "john@example.com"
+}
+```
+
+> **Response:**
+
+```json
+{
+    "id": 1,
+    "name": "John Doe",
+    "email": "john@example.com"
+}
+```
+
+### `GET api/rent`
+> **Description:** shows all rents made by users.
+
+> **Response:**
+
+```json
+[
+  {
+    "id": 1,
+    "start_date": "2025-04-26T17:18:10.782Z",
+    "end_date": "2025-05-03T17:18:10.782Z",
+    "user": {
+      "id": 1,
+      "name": "Alice"
+    },
+    "book": {
+      "id": 1,
+      "title": "Dom Casmurro"
+    }
+  },
+  ...
+]
+```
+
+### `POST api/rent`
+> **Description:** rents a book to a user.
+
+> **Request body:** 
+
+```json
+{
+    "user_id": 1,
+    "book_id": 1,
+    "start_date": "2025-04-26T17:18:10.782Z",
+    "end_date": "2025-05-03T17:18:10.782Z"
+}
+```
+
+`start_date` and `end_date` are optional, if not provided, the current date will be used and 7 days for the rent.
+
+> **Response:**
+
+```json
+{
+    "id": 4,
+    "user_id": 1,
+    "book_id": 3,
+    "start_date": "2025-04-27T22:33:00.241Z",
+    "end_date": "2025-05-04T22:33:00.242Z"
 }
 ```
 
