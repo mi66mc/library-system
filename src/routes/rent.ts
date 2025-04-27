@@ -23,4 +23,41 @@ router.post("/", async (req, res) => {
     }
 });
 
+router.get("/", async (_, res) => {
+    try {
+        const query = "SELECT * FROM rent";
+        const { rows: rents } = await pool.query(query);
+        // return all rents with user and book details
+        const rentsWithDetails = await Promise.all(rents.map(async (rent) => {
+            const userQuery = "SELECT * FROM users WHERE id = $1";
+            const bookQuery = "SELECT * FROM books WHERE id = $1";
+            const { rows: user } = await pool.query(userQuery, [rent.user_id]);
+            const { rows: book } = await pool.query(bookQuery, [rent.book_id]);
+            return {
+                ...rent,
+                user: user[0],
+                book: book[0]
+            };
+        }));
+
+        res.json(rentsWithDetails.map(rent => ({
+            id: rent.id,
+            start_date: rent.start_date,
+            end_date: rent.end_date,
+            user: {
+                id: rent.user.id,
+                name: rent.user.name
+            },
+            book: {
+                id: rent.book.id,
+                title: rent.book.title
+            }
+        })));
+    }
+    catch (error) {
+        console.error("Error: ", error);
+        res.status(500).json({ error: "Error while trying to get rents." });
+    }
+});
+
 export default router;
