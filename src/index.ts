@@ -12,7 +12,7 @@ app.use("/api/books", booksRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/rent", rentRouter);
 
-app.get("/", (req, res) => {
+app.get("/", (_, res) => {
   res.send("Welcome to the Books API!");
 });
 
