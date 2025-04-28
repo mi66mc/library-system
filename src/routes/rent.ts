@@ -27,7 +27,6 @@ router.get("/", async (_, res) => {
     try {
         const query = "SELECT * FROM rent";
         const { rows: rents } = await pool.query(query);
-        // return all rents with user and book details
         const rentsWithDetails = await Promise.all(rents.map(async (rent) => {
             const userQuery = "SELECT * FROM users WHERE id = $1";
             const bookQuery = "SELECT * FROM books WHERE id = $1";

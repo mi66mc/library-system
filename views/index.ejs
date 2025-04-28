@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Biblioteca</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    h1 { color: #333; }
+    ul { list-style: none; padding: 0; }
+    li { margin-bottom: 10px; }
+    .book {
+      background: #f4f4f4;
+      padding: 10px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Lista de Livros</h1>
+  <ul>
+    <% books.forEach(function(book) { %>
+      <li class="book">
+        <strong><%= book.title %></strong> — <em><%= book.author %></em>
+      </li>
+    <% }); %>
+  </ul>
+</body>
+</html>
